@@ -1060,11 +1060,11 @@ static int ft_tp_interrupt(struct ft5435_ts_data *data)
 	}
 
 	if (GESTURE_DB == reg_value) {
-		input_report_key(data->input_dev, KEY_WAKEUP, 1);
+		input_report_key(data->input_dev, KEY_POWER, 1);
 		input_sync(data->input_dev);
-		input_report_key(data->input_dev, KEY_WAKEUP, 0);
+		input_report_key(data->input_dev, KEY_POWER, 0);
 		input_sync(data->input_dev);
-		printk("[FTS]gesture KEY_POWER\n");
+		printk("[FTS]gesture KEY_POWER posted\n");
 	} else {
 		printk("[FTS]gesture_id, reg_value=0x%x \n", reg_value);
 	}
@@ -3193,8 +3193,7 @@ u8 ft_init_update_proc(struct ft5435_ts_data *ts)
 #if defined(FOCALTECH_TP_GESTURE)
 void keyset_for_tp_gesture(struct input_dev *input_dev)
 {
-	input_set_capability(input_dev, EV_KEY, KEY_WAKEUP);
-
+	input_set_capability(input_dev, EV_KEY, KEY_POWER);
 }
 #endif
 
